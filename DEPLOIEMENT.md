@@ -16,7 +16,8 @@ Aucun pour l'instant : pas de base de données, pas de stockage, pas d'appel IA.
 - Les deux pages (homepage, Organisateur) sont responsive sans plafond de largeur sur le conteneur : les fonds (header, hero, cta) s'étirent sur toute la largeur, seul le contenu interne (texte, grille de cards) garde une largeur de lecture raisonnable, centrée. Plus de bande latérale sur grand écran.
 - Seule la card « Organisateur » mène à une page dédiée ; les 3 autres cards restent sans navigation.
 - La page Organisateur n'a pas encore le restyle au gabarit du prototype (header, police, cards) appliqué à la homepage ; aucun bouton n'y est fonctionnel (pas de téléchargement, de formulaire ou de contact réel).
-- Le carrousel, le menu secondaire et le bandeau « 100 % des dons » du prototype ne sont pas repris (hors périmètre, cf. `ITERATIONS.md`).
+- Le bouton « Je donne » du header (haut à droite) est un lien statique (`href="#"`) : aucun parcours de don réel derrière.
+- Le carrousel, le menu secondaire (onglets non cliquables) et le bandeau « 100 % des dons » du prototype ne sont pas repris (hors périmètre, cf. `ITERATIONS.md`).
 - Les pages dédiées Entreprise, Particulier, Testateur, l'écran « Qui êtes-vous ? » et l'API métier ne sont pas encore construits.
 - Le `nginx.conf` du front ne porte pas encore les en-têtes de sécurité du gabarit de la plateforme (`templates/nginx.conf`) : à reprendre quand le front aura plusieurs routes à gérer en repli SPA.
 

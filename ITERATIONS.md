@@ -200,12 +200,40 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
     - `frontend/src/app/page.tsx` — critère 1 (balisage de la barre d'onglets, restructuration du header en `headerTopRow` + `headerNav` sous `headerInner`).
     - `frontend/src/app/page.module.css` — critères 1 et 2 (`headerInner` redevient un simple conteneur capé, sans les propriétés flex qui doublonnaient avec `headerTopRow`).
 
+## Itération 7 : le bouton « Je donne » en haut à droite du header
+
+⚠️ **Changement de priorité, demandé par le développeur** : juste avant cette itération, le développeur avait signalé un défaut de centrage/adaptation grand écran et demandé un retravail du header (l'allonger) plus l'activation réelle des onglets ajoutés en itération 6. Il a ensuite explicitement demandé de **mettre ce point de côté** et de prioriser d'abord le bouton « Je donne » du prototype (hors périmètre depuis l'itération 3). Le défaut de centrage signalé et le reste de cette demande (header à retravailler, onglets cliquables) repassent donc en tête de « À venir », non résolus, à reprendre dès cette itération terminée.
+
+- **Temps restant au début de l'itération 7** : 56 minutes (annoncé par le développeur).
+- **Dans le périmètre** :
+  - un bouton/lien « Je donne » dans `headerTopRow`, aligné à droite (logo à gauche, bouton à droite via `justify-content: space-between`), au style exact du prototype (`.header-cta` : fond rose foncé, pill, texte blanc, 13px/700) ;
+  - lien statique (`href="#"`), sans parcours de don réel derrière ;
+  - le header garde le traitement plein fond des itérations 5/6 (pas de bande latérale).
+- **Hors périmètre** : parcours de don fonctionnel, le recentrage/élargissement du header et les onglets cliquables (demandés juste avant, reportés en tête de « À venir »), la page Organisateur.
+- **Critères d'acceptation** :
+  - Étant donné la homepage, quand on l'ouvre, alors un bouton « Je donne » (fond rose foncé, texte blanc, forme pill) apparaît en haut à droite du header, sur la même ligne que le logo.
+  - Étant donné un viewport mobile (≤600px) ou desktop large, quand on affiche le header, alors le bouton ne déborde pas et ne recrée pas de bande latérale.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : aucune directement — fidélité visuelle au prototype.
+- **Codage estimé** : 4 minutes.
+- **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Tests unitaires prévus** : aucun nouveau — balisage et style purs, pas de logique métier.
+- **Étapes ajoutées à la démo** : aucune (lien statique, pas de nouveau parcours).
+- **Bilan** :
+  - **Codage** : <1 minute, aucun dépassement.
+  - **Critères d'acceptation** : les 3 satisfaits — le bouton « Je donne » (fond rose `#e64587`, texte blanc, pill) apparaît en haut à droite du header grâce à `justify-content: space-between` sur `headerTopRow` (logo regroupé dans un nouveau `.logoArea` à gauche) ; vérifié dans le HTML déployé (`curl localhost:8080/` contient bien « Je donne ») ; aucun changement au traitement plein fond du header (itérations 5/6), pas de régression de bande latérale ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe (2/2 racine, 0 test frontend requis), `./scripts/signaler-version.sh 7` accepté du premier coup.
+  - **Reporté** : inchangé — cf. « À venir » (défaut de centrage/header à retravailler/onglets cliquables repassés en tête, cards restantes, restyle Organisateur, etc.).
+  - **Démo (hors DoD)** : aucune étape ajoutée (lien statique, pas de nouveau parcours).
+  - **Modifications** :
+    - `frontend/src/app/page.tsx` — critère 1 (bouton « Je donne », logo regroupé dans `.logoArea`).
+    - `frontend/src/app/page.module.css` — critères 1 et 2 (`headerTopRow` en `space-between`, styles `.logoArea`/`.headerCta`).
+
 ## À venir
 
-1. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
-2. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
-3. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
-4. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
-5. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
-
-⚠️ Avec 20 minutes annoncées, 9 minutes de codage + ~5 minutes de publication laissent peu de marge pour une 2ᵉ itération derrière celle-ci dans ce build sauf temps additionnel annoncé à la clôture. Repli en cas de dépassement : publier la homepage seule, quitte à reporter le traitement de la page Organisateur à l'itération suivante.
+1. ⚠️ Reprendre la demande mise de côté pour l'itération 7 : défaut de centrage/adaptation signalé sur grand écran classique, retravail du header (l'allonger), et rendre les onglets de navigation (itération 6) réellement cliquables.
+2. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
+3. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
+4. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
+5. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
+6. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.

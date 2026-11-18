@@ -63,11 +63,16 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.headerTopRow}>
-            <Logo />
-            <div className={styles.logoText}>
-              <span className={styles.imagine}>IMAGINE</span>
-              <span className={styles.forMargo}>for Margo</span>
+            <div className={styles.logoArea}>
+              <Logo />
+              <div className={styles.logoText}>
+                <span className={styles.imagine}>IMAGINE</span>
+                <span className={styles.forMargo}>for Margo</span>
+              </div>
             </div>
+            <a className={styles.headerCta} href="#">
+              Je donne
+            </a>
           </div>
           <nav className={styles.headerNav}>
             <span className={`${styles.navTab} ${styles.activeTab}`}>L&apos;association</span>
