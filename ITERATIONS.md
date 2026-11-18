@@ -190,7 +190,15 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
 - **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
 - **Tests unitaires prévus** : aucun nouveau — balisage et style purs, pas de logique métier.
 - **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours, éléments non cliquables).
-- **Bilan** : _à remplir en fin d'itération_.
+- **Bilan** :
+  - **Codage** : <1 minute, aucun dépassement (le CSS existait déjà, seul le balisage et le réglage du conteneur restaient à faire).
+  - **Critères d'acceptation** : les 3 satisfaits — la barre affiche les 3 onglets dans l'ordre du prototype avec « L'association » actif (couleur + soulignement) ; vérifié dans le HTML déployé (`navTab`/`activeTab` présents, libellés corrects) ; le header suit le même traitement plein fond que l'itération 5 (le `headerInner` capé à 1100px enveloppe maintenant `headerTopRow` et `headerNav` empilés) ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe, `./scripts/signaler-version.sh 6` accepté du premier coup.
+  - **Reporté** : bouton « Je donne », navigation réelle des onglets, même barre sur la page Organisateur — inchangé, cf. « Hors périmètre ».
+  - **Démo (hors DoD)** : aucune étape ajoutée.
+  - **Modifications** :
+    - `frontend/src/app/page.tsx` — critère 1 (balisage de la barre d'onglets, restructuration du header en `headerTopRow` + `headerNav` sous `headerInner`).
+    - `frontend/src/app/page.module.css` — critères 1 et 2 (`headerInner` redevient un simple conteneur capé, sans les propriétés flex qui doublonnaient avec `headerTopRow`).
 
 ## À venir
 
