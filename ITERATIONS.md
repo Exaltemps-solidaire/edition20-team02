@@ -171,6 +171,27 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
     - `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css` — critères 1 et 2 (même traitement sur hero/cta).
     - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité.
 
+## Itération 6 : la barre d'onglets du header, sur la homepage
+
+⚠️ **Changement de priorité, demandé par le développeur** : ajoute la barre horizontale du header du prototype (« L'association » / « Nous aider » / « La recherche »), repérée dans le CSS mort trouvé en itération 5 (`headerTopRow`/`headerNav`/`navTab`/`activeTab`, cf. ⚠️ du Bilan précédent) mais jamais branchée au balisage. Passe devant « cards cliquables », reporté en « À venir ».
+
+- **Temps restant au début de l'itération 6** : 10 minutes (annoncé par le développeur).
+- **Dans le périmètre** :
+  - une barre `<nav>` sous la ligne logo du header, avec 3 onglets statiques (`L'association` actif, `Nous aider`, `La recherche`), au style exact du prototype (`.header-nav`/`.nav-tab`/`.nav-tab.active-tab`) ;
+  - les onglets sont décoratifs, non cliquables — c'est aussi le cas dans le prototype (pas de `href`, pas de gestionnaire de clic) ;
+  - le header garde le traitement plein fond de l'itération 5 (pas de bande latérale sur grand écran).
+- **Hors périmètre** : le bouton « Je donne » du header prototype (déjà hors périmètre à l'itération 3), navigation réelle des onglets, application de la même barre à la page Organisateur (qui n'a pas encore le header complet — cf. « À venir »).
+- **Critères d'acceptation** :
+  - Étant donné la homepage, quand on l'ouvre, alors une barre sous le logo affiche les 3 onglets dans l'ordre du prototype, « L'association » marqué actif (couleur + soulignement).
+  - Étant donné un viewport mobile (≤600px) ou desktop large, quand on affiche le header, alors la barre d'onglets suit le même traitement plein fond que le reste du header (pas de bande latérale), avec défilement horizontal si l'espace manque.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : aucune directement — fidélité visuelle au prototype.
+- **Codage estimé** : 4 minutes.
+- **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
+- **Tests unitaires prévus** : aucun nouveau — balisage et style purs, pas de logique métier.
+- **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours, éléments non cliquables).
+- **Bilan** : _à remplir en fin d'itération_.
+
 ## À venir
 
 1. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
