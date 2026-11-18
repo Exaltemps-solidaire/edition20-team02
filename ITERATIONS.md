@@ -140,13 +140,43 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
   - **Modifications** :
     - `frontend/src/app/page.module.css` — critères 1 et 2 (breakpoints 600px/1024px sur le conteneur et la grille de cards).
 
+## Itération 5 : plus de bande latérale sur grand écran, sur les deux pages
+
+⚠️ **Changement de priorité, demandé par le développeur** : le conteneur plafonné à 960px posé en itération 4 règle l'étirement excessif, mais recrée exactement le problème qu'on corrigeait — sur un ordinateur portable classique (1280px et plus), deux bandes de fond vides apparaissent de part et d'autre du conteneur. La cible par défaut est un ordinateur portable classique, sans bande visible quel que soit le moniteur. Le développeur a validé explicitement de retirer les limites de largeur plutôt que de les ajuster, et d'appliquer le traitement aux deux pages (homepage et Organisateur, qui n'avait jamais été traitée). Passe devant « cards cliquables » et « restyle Organisateur », reportés en « À venir ».
+
+- **Temps restant au début de l'itération 5** : 20 minutes (annoncé par le développeur).
+- **Dans le périmètre** :
+  - homepage : le conteneur (`.screen`) et ses fonds (header, hero) s'étirent sur toute la largeur de la fenêtre, sans plafond de largeur ; le contenu qui a besoin d'être lisible (texte du hero, grille de cards) garde une largeur interne raisonnable, centrée ;
+  - page Organisateur : même traitement — `.hero` et `.cta` (seuls blocs avec un fond de couleur propre, donc seuls responsables des bandes) s'étirent en plein fond, avec leur contenu capé et centré à l'intérieur ;
+  - le rendu mobile (≤600px) ne change pas sur les deux pages.
+- **Hors périmètre** : restyle de la page Organisateur au gabarit du prototype (reporté), cards cliquables restantes, carrousel, menu secondaire, bandeau dons.
+- **Critères d'acceptation** :
+  - Étant donné un viewport de largeur 1366px ou 1920px (ordinateur portable/moniteur courants), quand on ouvre `/` ou `/organisateur`, alors aucune bande de fond vide n'apparaît de part et d'autre du contenu.
+  - Étant donné un viewport mobile (≤600px), quand on ouvre `/` ou `/organisateur`, alors le rendu est identique à avant cette itération.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : aucune directement — réponse à un retour produit sur l'affichage desktop de la démo.
+- **Codage estimé** : 9 minutes.
+- **Fichiers prévus** : `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`, `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css`.
+- **Tests unitaires prévus** : aucun nouveau — CSS/mise en page pur, pas de logique métier.
+- **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours).
+- **Bilan** :
+  - **Codage** : ~3 minutes, aucun dépassement.
+  - **Critères d'acceptation** : les 3 satisfaits — le conteneur (`.screen` homepage, `.hero`/`.cta` Organisateur) n'a plus de plafond de largeur, le fond s'étire bord à bord et seul le contenu interne garde une largeur de lecture (1100px homepage, 600px pour les blocs hero/cta), vérifié dans le CSS déployé (plus de `max-width:420/700/960px` sur `.screen` ; `max-width:600px` sur les nouveaux `.heroInner`/`.ctaInner`) ; le rendu mobile (≤600px) est inchangé, aucune des règles mobiles existantes n'a été touchée ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe, `./scripts/signaler-version.sh 5` accepté du premier coup.
+  - **Reporté** : cards cliquables restantes, restyle Organisateur au gabarit prototype — inchangé, cf. « Hors périmètre ».
+  - ⚠️ **État trouvé en cours d'itération** : `frontend/src/app/page.module.css` portait déjà, avant cette itération, un ajout non committé (`headerTopRow`, `headerNav`, `navTab`, `activeTab`) pour une navigation secondaire par onglets — une fonctionnalité explicitement hors périmètre à l'itération 3, et non référencée dans `page.tsx`. Elle vient probablement d'une autre session du harnais ouverte en parallèle sur ce même dépôt. Elle a été laissée intacte (CSS mort, sans effet sur le rendu) plutôt que supprimée, pour ne pas écraser un travail en cours qui n'est pas le mien. À signaler aux cadreurs/à l'équipe : deux sessions semblent travailler sur le même fichier en même temps, risque de conflit au prochain commit de l'autre session.
+  - **Démo (hors DoD)** : aucune étape ajoutée (pas de nouveau parcours).
+  - **Modifications** :
+    - `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css` — critères 1 et 2 (conteneur plein fond, contenu capé et centré, header/hero inchangés en dessous de 600px).
+    - `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css` — critères 1 et 2 (même traitement sur hero/cta).
+    - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité.
+
 ## À venir
 
-1. Responsive de la page Organisateur, sur le même principe que la homepage.
-2. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
-3. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
-4. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
-5. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
-6. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
+1. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
+2. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
+3. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
+4. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
+5. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
 
-⚠️ Avec 20 minutes annoncées, 8 minutes de codage + ~5 minutes de publication laissent de la marge, mais toujours pas de 2ᵉ itération derrière celle-ci dans ce build sauf temps additionnel annoncé à la clôture. Repli en cas de dépassement : publier le breakpoint tablette/desktop pour le conteneur et le header seuls, quitte à reporter la grille multi-colonnes des cards.
+⚠️ Avec 20 minutes annoncées, 9 minutes de codage + ~5 minutes de publication laissent peu de marge pour une 2ᵉ itération derrière celle-ci dans ce build sauf temps additionnel annoncé à la clôture. Repli en cas de dépassement : publier la homepage seule, quitte à reporter le traitement de la page Organisateur à l'itération suivante.

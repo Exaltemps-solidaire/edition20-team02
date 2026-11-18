@@ -61,61 +61,67 @@ export default function Home() {
   return (
     <div className={styles.screen}>
       <header className={styles.header}>
-        <Logo />
-        <div className={styles.logoText}>
-          <span className={styles.imagine}>IMAGINE</span>
-          <span className={styles.forMargo}>for Margo</span>
+        <div className={styles.headerInner}>
+          <Logo />
+          <div className={styles.logoText}>
+            <span className={styles.imagine}>IMAGINE</span>
+            <span className={styles.forMargo}>for Margo</span>
+          </div>
         </div>
       </header>
 
       <div className={styles.hero}>
-        <p className={styles.heroTagline}>Go · Fight · Win</p>
-        <h1 className={styles.heroTitle}>
-          Ensemble contre les
-          <br />
-          <span>cancers des enfants</span>
-        </h1>
-        <p className={styles.heroSubtitle}>Trouvez votre parcours en un clic</p>
+        <div className={styles.heroInner}>
+          <p className={styles.heroTagline}>Go · Fight · Win</p>
+          <h1 className={styles.heroTitle}>
+            Ensemble contre les
+            <br />
+            <span>cancers des enfants</span>
+          </h1>
+          <p className={styles.heroSubtitle}>Trouvez votre parcours en un clic</p>
+        </div>
       </div>
 
-      <div className={styles.sectionLabel}>
-        <span>🦋</span>
-        <span>Toutes les portes d&apos;entrée</span>
-      </div>
-      <p className={styles.sectionTitle}>Choisissez votre parcours</p>
+      <div className={styles.content}>
+        <div className={styles.sectionLabel}>
+          <span>🦋</span>
+          <span>Toutes les portes d&apos;entrée</span>
+        </div>
+        <p className={styles.sectionTitle}>Choisissez votre parcours</p>
 
-      <div className={styles.cards}>
-        {PUBLICS.map((p) => {
-          const style = {
-            "--accent": p.accent,
-            "--label": p.labelColor,
-            "--arrow-bg": p.arrowBg,
-          } as React.CSSProperties;
-          const content = (
-            <>
-              <div className={styles.cardAccent} />
-              <div className={styles.cardBody}>
-                <div className={styles.cardHeaderRow}>
-                  <span className={styles.cardLabel}>{p.label}</span>
-                  <span className={styles.cardArrow}>
-                    <Arrow />
-                  </span>
+        <div className={styles.cards}>
+          {PUBLICS.map((p) => {
+            const style = {
+              "--accent": p.accent,
+              "--label": p.labelColor,
+              "--arrow-bg": p.arrowBg,
+            } as React.CSSProperties;
+            const content = (
+              <>
+                <div className={styles.cardAccent} />
+                <div className={styles.cardBody}>
+                  <div className={styles.cardHeaderRow}>
+                    <span className={styles.cardLabel}>{p.label}</span>
+                    <span className={styles.cardArrow}>
+                      <Arrow />
+                    </span>
+                  </div>
+                  <div className={styles.cardTitle}>{p.title}</div>
+                  <div className={styles.cardDesc}>{p.desc}</div>
                 </div>
-                <div className={styles.cardTitle}>{p.title}</div>
-                <div className={styles.cardDesc}>{p.desc}</div>
+              </>
+            );
+            return p.href ? (
+              <Link key={p.label} href={p.href} className={styles.card} style={style}>
+                {content}
+              </Link>
+            ) : (
+              <div key={p.label} className={styles.card} style={style}>
+                {content}
               </div>
-            </>
-          );
-          return p.href ? (
-            <Link key={p.label} href={p.href} className={styles.card} style={style}>
-              {content}
-            </Link>
-          ) : (
-            <div key={p.label} className={styles.card} style={style}>
-              {content}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

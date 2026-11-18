@@ -1,32 +1,71 @@
 .screen {
   width: 100%;
-  max-width: 420px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #fff;
 }
 
-@media (min-width: 600px) {
-  .screen {
-    max-width: 700px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
-  }
-}
-
-@media (min-width: 1024px) {
-  .screen {
-    max-width: 960px;
-  }
-}
-
 .header {
   background: #fff;
-  padding: 10px 16px 10px;
+  padding: 10px 16px 0;
   border-bottom: 2px solid #e0ecfa;
+  display: flex;
+  justify-content: center;
+}
+
+.headerInner {
+  width: 100%;
+  max-width: 1100px;
   display: flex;
   align-items: center;
   gap: 10px;
+  padding-bottom: 10px;
+}
+
+.headerTopRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.headerNav {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-top: 1px solid #e0ecfa;
+}
+
+.headerNav::-webkit-scrollbar {
+  display: none;
+}
+
+.navTab {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: #575756;
+  padding: 9px 14px;
+  position: relative;
+  white-space: nowrap;
+  opacity: 0.75;
+}
+
+.activeTab {
+  color: #11a2dd;
+  opacity: 1;
+}
+
+.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #11a2dd;
 }
 
 .logo {
@@ -58,6 +97,19 @@
   background: #11a2dd;
   padding: 24px 20px 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.heroInner {
+  width: 100%;
+  max-width: 600px;
+}
+
+.content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .heroTagline {

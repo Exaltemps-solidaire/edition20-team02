@@ -24,20 +24,22 @@ export default function Organisateur() {
       </Link>
 
       <div className={styles.hero}>
-        <span className={styles.heroPill}>🎪 Organisateur</span>
-        <h1 className={styles.heroTitle}>Lancez votre action solidaire</h1>
-        <p className={styles.heroDesc}>
-          +200 actions organisées chaque année au profit d&apos;Imagine for
-          Margo. Téléchargez votre kit et rejoignez le mouvement.
-        </p>
-        <div className={styles.stats}>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>+200</div>
-            <div className={styles.statLabel}>actions solidaires en 2024</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>1 800</div>
-            <div className={styles.statLabel}>bénévoles mobilisés</div>
+        <div className={styles.heroInner}>
+          <span className={styles.heroPill}>🎪 Organisateur</span>
+          <h1 className={styles.heroTitle}>Lancez votre action solidaire</h1>
+          <p className={styles.heroDesc}>
+            +200 actions organisées chaque année au profit d&apos;Imagine for
+            Margo. Téléchargez votre kit et rejoignez le mouvement.
+          </p>
+          <div className={styles.stats}>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>+200</div>
+              <div className={styles.statLabel}>actions solidaires en 2024</div>
+            </div>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>1 800</div>
+              <div className={styles.statLabel}>bénévoles mobilisés</div>
+            </div>
           </div>
         </div>
       </div>
@@ -53,9 +55,11 @@ export default function Organisateur() {
       </div>
 
       <div className={styles.cta}>
-        <p className={styles.ctaTitle}>Prêt à vous lancer ?</p>
-        <p className={styles.ctaSub}>On vous accompagne de A à Z, gratuitement</p>
-        <span className={styles.ctaButton}>Contacter l&apos;équipe événements</span>
+        <div className={styles.ctaInner}>
+          <p className={styles.ctaTitle}>Prêt à vous lancer ?</p>
+          <p className={styles.ctaSub}>On vous accompagne de A à Z, gratuitement</p>
+          <span className={styles.ctaButton}>Contacter l&apos;équipe événements</span>
+        </div>
       </div>
     </div>
   );
