@@ -79,10 +79,45 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
     - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité (section fragile/inachevé).
     - `e2e/demo.spec.ts` — démo (hors DoD), étapes clic + retour.
 
+## Itération 3 : la homepage reprend l'identité visuelle du prototype
+
+⚠️ **Changement de priorité, demandé par le développeur** : l'équipe produit, en testant la version 2, ne reconnaissait pas la homepage comme la bonne version — la mise en forme minimale de l'itération 1 (assumée alors par manque de temps) est visuellement trop éloignée du prototype pour qu'ils s'y retrouvent. Cette itération passe donc devant « rendre les 3 autres cards cliquables », reportée en « À venir ». À valider par les cadreurs au prochain tour de test.
+
+- **Temps restant au début de l'itération 3** : 20 minutes (annoncé par le développeur).
+- **Dans le périmètre** :
+  - gabarit mobile centré (largeur max 420px, fond `#c8d8e8` autour), police Poppins (Google Fonts) ;
+  - header avec le logo SVG « papillon » et le nom « Imagine for Margo », repris tels quels du prototype ;
+  - bandeau hero (accroche, titre, sous-titre) au style du prototype ;
+  - restyle des 4 cards publics : barre d'accent, ligne libellé + flèche, titre, description — au plus près de `.public-card`/`.card-*` du prototype ;
+  - le lien de la card Organisateur vers `/organisateur` est conservé.
+- **Hors périmètre** : carrousel interactif, onglets de nav secondaire, bouton « Je donne », bandeau footer « 100 % des dons », restyle de la page `/organisateur` (reporté).
+- **Critères d'acceptation** :
+  - Étant donné la homepage, quand on l'ouvre, alors elle s'affiche dans un cadre mobile centré (max 420px) avec le header logo + nom et la police Poppins.
+  - Étant donné la homepage, quand on regarde les 4 cards, alors leur style (barre d'accent, libellé + flèche, titre, description) correspond à celui du prototype.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : aucune directement — lève un blocage de reconnaissance produit, condition pour que les hypothèses soient testables du tout.
+- **Codage estimé** : 9 minutes.
+- **Fichiers prévus** : `frontend/src/app/layout.tsx` (police Poppins), `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`, `frontend/src/app/globals.css` (fond hors cadre).
+- **Tests unitaires prévus** : aucun nouveau — restyle et balisage purs, pas de logique métier.
+- **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours, juste un restyle).
+- **Bilan** :
+  - **Codage** : ~2 minutes, aucun dépassement.
+  - **Critères d'acceptation** : les 3 satisfaits — gabarit mobile (max 420px) avec header logo + « IMAGINE for Margo » et police Poppins ; cards restylées (barre d'accent, libellé + flèche, titre, description) avec les couleurs exactes du prototype par public ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne. Repris aussi, en prime et à coût nul : la copie exacte du hero (tagline « Go · Fight · Win », titre, sous-titre) et du libellé de section, pour maximiser la reconnaissance par l'équipe produit.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe, `./scripts/signaler-version.sh 3` accepté du premier coup.
+  - **Reporté** : carrousel, menu secondaire, bouton « Je donne », bandeau « 100 % des dons », restyle de la page Organisateur — inchangé, cf. « Hors périmètre ».
+  - **Démo (hors DoD)** : aucune étape ajoutée (pas de nouveau parcours).
+  - **Modifications** :
+    - `frontend/src/app/layout.tsx` — critère 1 (police Poppins au lieu de Geist).
+    - `frontend/src/app/globals.css` — critère 1 (fond hors cadre, suppression du mode sombre automatique qui cassait la charte).
+    - `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css` — critères 1 et 2 (header, hero, cards au gabarit du prototype).
+    - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité.
+
 ## À venir
 
-1. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
-2. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
-3. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
+1. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
+2. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
+3. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
+4. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
+5. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
 
-⚠️ Avec 15 minutes annoncées pour l'itération 2, la marge est la même que pour l'itération 1 : 6 minutes de codage + ~5 minutes de publication laissent peu de latitude si le build/push des images traîne. Repli en cas de dépassement : publier la page Organisateur sans le lien retour (reporté), plutôt que ne rien publier.
+⚠️ Avec 20 minutes annoncées, 9 minutes de codage + ~5 minutes de publication laissent une marge plus confortable qu'aux itérations précédentes, mais toujours pas de 3ᵉ itération derrière celle-ci dans ce build. Repli en cas de dépassement : publier au minimum le gabarit mobile + header + police, quitte à reporter le restyle complet des cards.
