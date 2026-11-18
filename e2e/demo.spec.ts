@@ -13,4 +13,16 @@ test("Démo : le cas passant", async ({ page }) => {
     await expect(page.getByText("Testateur · Legs")).toBeVisible();
     await expect(page.getByText("Organisateur", { exact: true })).toBeVisible();
   });
+
+  await test.step("Je clique sur la card Organisateur", async () => {
+    await page.getByText("Organisateur", { exact: true }).click();
+    await expect(
+      page.getByRole("heading", { name: "Lancez votre action solidaire" }),
+    ).toBeVisible();
+  });
+
+  await test.step("Je reviens à la homepage", async () => {
+    await page.getByRole("link", { name: "← Retour" }).click();
+    await expect(page.getByText("Choisissez votre parcours")).toBeVisible();
+  });
 });

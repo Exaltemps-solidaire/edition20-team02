@@ -67,7 +67,17 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
 - **Fichiers prévus** : `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css`, `frontend/src/app/page.tsx` (card → lien), `frontend/src/app/page.module.css` (style du lien si besoin).
 - **Tests unitaires prévus** : aucun nouveau — navigation et balisage purs, pas de logique métier (calcul, validation, transformation). Les tests existants doivent continuer de passer.
 - **Étapes ajoutées à la démo** (`e2e/demo.spec.ts`) : cliquer sur la card Organisateur, vérifier le contenu de la page dédiée, cliquer sur retour, vérifier qu'on est de nouveau sur `/`.
-- **Bilan** : _à remplir en fin d'itération._
+- **Bilan** :
+  - **Codage** : ~1 minute, aucun dépassement.
+  - **Critères d'acceptation** : les 3 satisfaits — clic sur la card Organisateur → `/organisateur` affiche hero, 2 stats, 3 actions et bloc CTA ; le lien « ← Retour » ramène à `/` ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe (routes API inchangées, aucun test frontend requis), `./scripts/signaler-version.sh 2` accepté du premier coup.
+  - **Reporté** : inchangé — écran de choix de persona, pages Entreprise/Particulier/Testateur, actions réelles (téléchargement, déclaration, contact) sur la page Organisateur.
+  - **Démo (hors DoD)** : 2 étapes ajoutées (clic sur la card, retour). `npm run demo` reste non exécutable dans cet environnement (lib système `libnspr4.so` manquante pour Chromium) — signalé à nouveau, non bloquant.
+  - **Modifications** :
+    - `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css` — critère 1 (contenu de la page dédiée).
+    - `frontend/src/app/page.tsx` — critères 1 et 2 (card Organisateur devient un lien `next/link`).
+    - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité (section fragile/inachevé).
+    - `e2e/demo.spec.ts` — démo (hors DoD), étapes clic + retour.
 
 ## À venir
 

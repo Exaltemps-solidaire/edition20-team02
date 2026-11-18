@@ -13,8 +13,9 @@ Aucun pour l'instant : pas de base de données, pas de stockage, pas d'appel IA.
 
 ## Fragile / inachevé
 
-- La homepage affiche les 4 cards par public avec des libellés en dur, sans navigation vers une page dédiée.
-- Les pages dédiées (Organisateur, Entreprise, Particulier, Testateur), l'écran « Qui êtes-vous ? » et l'API métier ne sont pas encore construits.
+- Seule la card « Organisateur » mène à une page dédiée ; les 3 autres cards restent sans navigation.
+- Sur la page Organisateur, aucun bouton n'est fonctionnel (pas de téléchargement, de formulaire ou de contact réel) : contenu en dur, repris du prototype.
+- Les pages dédiées Entreprise, Particulier, Testateur, l'écran « Qui êtes-vous ? » et l'API métier ne sont pas encore construits.
 - Le `nginx.conf` du front ne porte pas encore les en-têtes de sécurité du gabarit de la plateforme (`templates/nginx.conf`) : à reprendre quand le front aura plusieurs routes à gérer en repli SPA.
 
 ## Contact
