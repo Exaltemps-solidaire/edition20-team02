@@ -13,6 +13,7 @@ Aucun pour l'instant : pas de base de données, pas de stockage, pas d'appel IA.
 
 ## Fragile / inachevé
 
+- Seule la homepage est responsive (breakpoints tablette/desktop) ; la page Organisateur reste figée au gabarit mobile (420px).
 - Seule la card « Organisateur » mène à une page dédiée ; les 3 autres cards restent sans navigation.
 - La page Organisateur n'a pas encore le restyle au gabarit du prototype (header, police, cards) appliqué à la homepage ; aucun bouton n'y est fonctionnel (pas de téléchargement, de formulaire ou de contact réel).
 - Le carrousel, le menu secondaire et le bandeau « 100 % des dons » du prototype ne sont pas repris (hors périmètre, cf. `ITERATIONS.md`).

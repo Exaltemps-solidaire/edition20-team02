@@ -112,12 +112,41 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
     - `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css` — critères 1 et 2 (header, hero, cards au gabarit du prototype).
     - `DEPLOIEMENT.md` — tenue à jour du contrat de déployabilité.
 
+## Itération 4 : la homepage s'adapte aux écrans larges (tablette, desktop)
+
+⚠️ **Changement de priorité, demandé par le développeur** : le gabarit du prototype (et celui posé en itération 3) est pensé pour mobile uniquement (conteneur figé à 420px) ; sur un écran large, la page reste cantonnée à cette largeur. Passe devant « restyle de la page Organisateur » et « cards cliquables », reportés en « À venir ».
+
+- **Temps restant au début de l'itération 4** : 20 minutes (annoncé par le développeur).
+- **Dans le périmètre** :
+  - le conteneur (`.screen`) ne garde la largeur fixe 420px qu'en dessous d'un breakpoint tablette (~600px) ; au-delà, il s'élargit (jusqu'à ~900px sur desktop) ;
+  - header et bandeau hero s'étirent sur la largeur du conteneur élargi, sans changer de structure ;
+  - la grille de cards passe d'une colonne (mobile) à 2 colonnes (tablette) puis plus (desktop), via CSS Grid + media queries ; le rendu en dessous de 600px reste identique à l'itération 3.
+- **Hors périmètre** : responsive de la page `/organisateur` (reporté), carrousel, menu secondaire, bandeau dons.
+- **Critères d'acceptation** :
+  - Étant donné un viewport mobile (≤600px), quand on ouvre `/`, alors le rendu est identique à l'itération 3 (colonne unique, cards empilées, conteneur 420px).
+  - Étant donné un viewport desktop (≥1024px), quand on ouvre `/`, alors le conteneur dépasse 420px et les 4 cards s'affichent sur plusieurs colonnes.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : aucune directement — réponse à un retour produit sur l'accessibilité desktop de la démo.
+- **Codage estimé** : 8 minutes.
+- **Fichiers prévus** : `frontend/src/app/page.module.css` (media queries), `frontend/src/app/globals.css` (alignement du conteneur si besoin).
+- **Tests unitaires prévus** : aucun nouveau — CSS/mise en page pur, pas de logique métier.
+- **Étapes ajoutées à la démo** : aucune (pas de nouveau parcours).
+- **Bilan** :
+  - **Codage** : ~1 minute, aucun dépassement.
+  - **Critères d'acceptation** : les 3 satisfaits — en dessous de 600px le rendu est inchangé (colonne unique, conteneur 420px) ; à partir de 1024px le conteneur passe à 960px et les cards s'affichent en grille multi-colonnes (`repeat(auto-fit, minmax(220px, 1fr))`) ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne. Vérifié via le CSS déployé (`@media (min-width:600px)`/`(min-width:1024px)` présents dans les chunks servis).
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe, `./scripts/signaler-version.sh 4` accepté du premier coup.
+  - **Reporté** : responsive de la page Organisateur, cards cliquables restantes, restyle Organisateur — inchangé, cf. « Hors périmètre ».
+  - **Démo (hors DoD)** : aucune étape ajoutée.
+  - **Modifications** :
+    - `frontend/src/app/page.module.css` — critères 1 et 2 (breakpoints 600px/1024px sur le conteneur et la grille de cards).
+
 ## À venir
 
-1. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
-2. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
-3. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
-4. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
-5. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
+1. Responsive de la page Organisateur, sur le même principe que la homepage.
+2. Rendre les 3 autres cards (Entreprise, Particulier, Testateur) cliquables vers leurs pages dédiées, sur le modèle de la page Organisateur.
+3. Restyle de la page Organisateur au gabarit du prototype (hero `.hero-organisateur`, stats, actions).
+4. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
+5. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
+6. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
 
-⚠️ Avec 20 minutes annoncées, 9 minutes de codage + ~5 minutes de publication laissent une marge plus confortable qu'aux itérations précédentes, mais toujours pas de 3ᵉ itération derrière celle-ci dans ce build. Repli en cas de dépassement : publier au minimum le gabarit mobile + header + police, quitte à reporter le restyle complet des cards.
+⚠️ Avec 20 minutes annoncées, 8 minutes de codage + ~5 minutes de publication laissent de la marge, mais toujours pas de 2ᵉ itération derrière celle-ci dans ce build sauf temps additionnel annoncé à la clôture. Repli en cas de dépassement : publier le breakpoint tablette/desktop pour le conteneur et le header seuls, quitte à reporter la grille multi-colonnes des cards.
