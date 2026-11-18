@@ -50,11 +50,29 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
     - `frontend/src/app/layout.tsx` — critère 1 (titre/langue cohérents avec la homepage réelle, corrigé après déploiement).
     - `e2e/demo.spec.ts` — démo (hors DoD), étape des 4 cards.
 
+## Itération 2 : la card Organisateur mène à sa page dédiée
+
+- **Temps restant au début de l'itération 2** : 15 minutes (annoncé par le développeur). Codage + publication (~5 min) doivent tenir dans ce budget ; le tour de test de l'équipe (10 min) a lieu après la fin du build — pas de 3ᵉ itération prévue derrière, sauf si le développeur annonce du temps en plus à la clôture.
+- **Dans le périmètre** :
+  - `frontend/src/app/organisateur/page.tsx` + `page.module.css` : page dédiée reprenant le contenu de `screen-5` du prototype (hero, 2 stats, 3 cartes d'action, bloc CTA) — texte en dur, aucun bouton n'est fonctionnel (pas de téléchargement, pas de formulaire, pas de contact réel) ;
+  - `frontend/src/app/page.tsx` : la card « Organisateur » devient un lien (`next/link`) vers `/organisateur` ; les 3 autres cards restent non cliquables ;
+  - un bouton ou lien de retour vers `/` sur la page dédiée.
+- **Hors périmètre** : les 3 autres pages dédiées, l'écran de choix de persona, toute action réelle (téléchargement, déclaration, contact), mesure du nombre de clics.
+- **Critères d'acceptation** :
+  - Étant donné la homepage, quand on clique sur la card « Organisateur », alors on arrive sur `/organisateur` et son contenu (hero + stats + 3 actions + CTA) s'affiche.
+  - Étant donné la page `/organisateur`, quand on clique sur le bouton retour, alors on revient à `/`.
+  - Étant donné le contrat de déployabilité, quand on exécute `./scripts/verifier-deployabilite.sh`, alors aucune borne n'est signalée.
+- **Hypothèse de l'équipe couverte** : « 0 détour / 0 clic menu » (partiellement) — un seul clic depuis la homepage mène au contenu Organisateur ; la mesure réelle (temps, clics) reste hors périmètre.
+- **Codage estimé** : 6 minutes.
+- **Fichiers prévus** : `frontend/src/app/organisateur/page.tsx`, `frontend/src/app/organisateur/page.module.css`, `frontend/src/app/page.tsx` (card → lien), `frontend/src/app/page.module.css` (style du lien si besoin).
+- **Tests unitaires prévus** : aucun nouveau — navigation et balisage purs, pas de logique métier (calcul, validation, transformation). Les tests existants doivent continuer de passer.
+- **Étapes ajoutées à la démo** (`e2e/demo.spec.ts`) : cliquer sur la card Organisateur, vérifier le contenu de la page dédiée, cliquer sur retour, vérifier qu'on est de nouveau sur `/`.
+- **Bilan** : _à remplir en fin d'itération._
+
 ## À venir
 
-1. Page dédiée Organisateur – Action solidaire, accessible depuis sa card (clic → navigation), contenu en dur.
-2. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
-3. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
-4. Contenu réel des pages dédiées (informations, kit, action de contact/téléchargement) à la place du contenu en dur.
+1. Écran « Qui êtes-vous ? » (sélection de persona, un par rôle du scénario), avec bouton pour en changer.
+2. Pages dédiées Entreprise mécène, Particulier, Testateur – Legs & donation, sur le même modèle que la page Organisateur.
+3. Contenu réel et actions fonctionnelles des pages dédiées (téléchargement de kit, déclaration d'action, contact) à la place des boutons non fonctionnels.
 
-⚠️ Avec 10 à 15 minutes, même l'itération 1 est tendue : 7 minutes de codage + ~5 minutes de publication consomment presque tout le budget, sans marge si la publication (build/push des deux images, redémarrage des conteneurs) traîne. Si ça dérape, la priorité est de publier un résultat qui répond sur `/health` et `/sante`, quitte à garder le gabarit Next.js par défaut sur `/` et reporter les 4 cards à une itération suivante.
+⚠️ Avec 15 minutes annoncées pour l'itération 2, la marge est la même que pour l'itération 1 : 6 minutes de codage + ~5 minutes de publication laissent peu de latitude si le build/push des images traîne. Repli en cas de dépassement : publier la page Organisateur sans le lien retour (reporté), plutôt que ne rien publier.
