@@ -34,7 +34,21 @@ Sortent donc du périmètre de ce build, reportés en « À venir » sans garant
 - **Fichiers prévus** : `.env.example`, `DEPLOIEMENT.md`, `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css`.
 - **Tests unitaires prévus** : aucun nouveau — pas de logique métier nouvelle (cards statiques, pur balisage). Les tests existants (`api/src/routes.test.ts`) doivent continuer de passer.
 - **Étapes ajoutées à la démo** (`e2e/demo.spec.ts`) : ouvrir la homepage, vérifier la présence des 4 cards.
-- **Bilan** : _à remplir en fin d'itération (durée de codage réelle, dépassement éventuel, fait, reporté, modifications fichier par fichier)._
+- **Bilan** :
+  - **Codage** : ~2 minutes, pas de dépassement (budget 8 min non atteint).
+  - **Critères d'acceptation** : les 3 satisfaits — 4 cards affichées avec libellés exacts du prototype (`Entreprise mécène`, `Particulier`, `Testateur · Legs`, `Organisateur`) ; `/health` et `/sante` répondent 200 sur 8080 et 8081 (vérifié par `curl` depuis la machine) ; `./scripts/verifier-deployabilite.sh` ne signale aucune borne.
+  - **Bloqué/refusé par le harnais** : rien — `npm test` passe (suite racine 2/2, suite frontend sans test métier nouveau), le contrat de déployabilité est propre, `./scripts/signaler-version.sh 1` a été accepté du premier coup.
+  - **Incident hors code** : le premier démarrage de la plateforme (`gitlab-ci-local --force-shell-executor`) a échoué à cause du rate-limit anonyme de Docker Hub (images `registry:2` et `pgvector/pgvector:pg17` jamais tirées) ; un second lancement, idempotent, a réussi entièrement.
+  - **Reporté** : tout ce qui est listé en « À venir » ci-dessous, inchangé — navigation depuis les cards, écran de choix de persona, pages dédiées, contenu réel.
+  - **Démo (hors DoD)** : étape « Je vois les 4 cards par public » ajoutée à `e2e/demo.spec.ts`. `npm run demo` échoue dans cet environnement (Chromium installé via `playwright install chromium`, mais lib système manquante : `libnspr4.so`) — signalé, non bloquant.
+  - **Modifications** :
+    - `.env.example` — critère 3 (contrat de déployabilité : variables documentées).
+    - `DEPLOIEMENT.md` — critère 3 (doc une page du contrat).
+    - `api/Dockerfile`, `frontend/Dockerfile` — critères 1 et 2 (images qualifiées `docker.io/library/...`, condition du déploiement serveur).
+    - `podman-compose.yml` — critères 1 et 2 (publication 8080/8081 sur `core-network`).
+    - `frontend/src/app/page.tsx`, `frontend/src/app/page.module.css` — critère 1 (4 cards, libellés du prototype).
+    - `frontend/src/app/layout.tsx` — critère 1 (titre/langue cohérents avec la homepage réelle, corrigé après déploiement).
+    - `e2e/demo.spec.ts` — démo (hors DoD), étape des 4 cards.
 
 ## À venir
 
